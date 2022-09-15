@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 public class ClassForm {
 
-	public ClassForm() {
-	}
-
 	private int id;
 
 	private int teacher;

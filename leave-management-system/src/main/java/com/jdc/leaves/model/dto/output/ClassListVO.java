@@ -17,7 +17,7 @@ public class ClassListVO {
 
 	private LocalDate startDate;
 
-	private int moths;
+	private int months;
 
 	private String description;
 
@@ -63,12 +63,12 @@ public class ClassListVO {
 		this.startDate = startDate;
 	}
 
-	public int getMoths() {
-		return moths;
+	public int getMonths() {
+		return months;
 	}
 
-	public void setMoths(int moths) {
-		this.moths = moths;
+	public void setMonths(int months) {
+		this.months = months;
 	}
 
 	public String getDescription() {

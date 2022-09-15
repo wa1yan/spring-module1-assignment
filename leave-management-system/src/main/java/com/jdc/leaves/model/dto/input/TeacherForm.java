@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 public class TeacherForm {
 
-	public TeacherForm() {
-	}
-
 	private int id;
 
 	private String name;
@@ -16,6 +13,18 @@ public class TeacherForm {
 	private String email;
 
 	private LocalDate assignDate;
+
+	public TeacherForm() {
+		super();
+	}
+
+	public TeacherForm(int id, String name, String phone, String email, LocalDate assignDate) {
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.assignDate = assignDate;
+	}
 
 	public int getId() {
 		return id;

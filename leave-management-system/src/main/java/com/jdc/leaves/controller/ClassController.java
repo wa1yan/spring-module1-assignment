@@ -26,7 +26,7 @@ public class ClassController {
 		return "classes";
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable Optional<Integer> id) {
 		return "classes-edit";
 	}
