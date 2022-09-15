@@ -11,9 +11,6 @@ import com.jdc.leaves.model.dto.output.RegistrationListVO;
 @Service
 public class RegistrationService {
 
-	public RegistrationService() {
-	}
-
 	public int save(RegistrationForm form) {
 		// TODO implement here
 		return 0;

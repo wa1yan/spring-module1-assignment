@@ -11,10 +11,7 @@ import com.jdc.leaves.model.dto.output.TeacherListVO;
 
 @Service
 public class TeacherService {
-
-	public TeacherService() {
-	}
-
+	
 	public List<TeacherListVO> search(Optional<String> name, Optional<String> phone, Optional<String> email) {
 		// TODO implement here
 		return null;

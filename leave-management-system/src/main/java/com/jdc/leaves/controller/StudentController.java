@@ -3,16 +3,20 @@ package com.jdc.leaves.controller;
 import java.util.*;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/students")
 public class StudentController {
 
-	public StudentController() {
-	}
-
-	public String index(Optional<String> name, Optional<String> phone, Optional<String> email) {
-		// TODO implement here
-		return "";
+	@GetMapping
+	public String index(
+			@RequestParam Optional<String> name,
+			@RequestParam Optional<String> phone,
+			@RequestParam Optional<String> email) {
+		return "students";
 	}
 
 }

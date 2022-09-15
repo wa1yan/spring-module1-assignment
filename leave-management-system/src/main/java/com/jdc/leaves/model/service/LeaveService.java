@@ -12,9 +12,6 @@ import com.jdc.leaves.model.dto.output.LeaveSummaryVO;
 @Service
 public class LeaveService {
 
-	public LeaveService() {
-	}
-
 	public List<LeaveListVO> search(Optional<Integer> classId, Optional<String> studentName, Optional<LocalDate> from, Optional<LocalDate> to) {
 		// TODO implement here
 		return null;

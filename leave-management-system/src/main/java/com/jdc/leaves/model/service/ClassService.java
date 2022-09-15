@@ -13,9 +13,6 @@ import com.jdc.leaves.model.dto.output.ClassListVO;
 @Service
 public class ClassService {
 
-	public ClassService() {
-	}
-
 	public List<ClassListVO> search(Optional<String> teacher, Optional<LocalDate> from, Optional<LocalDate> to) {
 		// TODO implement here
 		return null;

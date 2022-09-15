@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Leave | Home</title>
+<title>Leave | Teachers</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -18,6 +18,8 @@
 </head>
 <body>
 
-	<c:import url="/jsp/include/navbar.jsp" ></c:import>
+	<c:import url="/jsp/include/navbar.jsp" >
+		<c:param name="view" value="teachers"></c:param>
+	</c:import>
 </body>
 </html>

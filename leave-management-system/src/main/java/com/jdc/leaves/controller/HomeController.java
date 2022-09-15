@@ -4,16 +4,17 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/home")
 public class HomeController {
 
-	public HomeController() {
-	}
-
-	public String index(Optional<LocalDate> targetDate) {
-		// TODO implement here
-		return "";
+	@GetMapping
+	public String index(@RequestParam Optional<LocalDate> targetDate) {
+		return "home";
 	}
 
 }
