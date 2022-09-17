@@ -18,7 +18,7 @@ public class ClassService {
 		return null;
 	}
 
-	public ClassForm findById(int id) {
+	public ClassForm findById(Optional<Integer> id) {
 		// TODO implement here
 		return null;
 	}

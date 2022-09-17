@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +26,15 @@ public class TeacherController {
 	public String index(
 			@RequestParam Optional<String> name,
 			@RequestParam Optional<String> phone,
-			@RequestParam Optional<String> email) {
+			@RequestParam Optional<String> email,
+			ModelMap model) {
+		model.put("list", teacherService.search(name, phone, email));
 		return "teachers";
 	}
 
 	@GetMapping("/edit")
 	public String edit(@RequestParam Optional<Integer> id) {
+		
 		return "teachers-edit";
 	}
 

@@ -3,10 +3,7 @@ package com.jdc.leaves.model.dto.output;
 import java.util.*;
 
 public class ClassDetailsVO {
-
-	public ClassDetailsVO() {
-	}
-
+	
 	private ClassListVO classInfo;
 
 	private List<RegistrationListVO> registrations;
