@@ -3,6 +3,7 @@ package com.jdc.leaves.test.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -46,5 +47,26 @@ public class TeacherServiceTest {
 		assertEquals(assignDate, teacher.getAssignDate());
 		assertEquals(classCount, teacher.getClassCount());
 
+	}
+	
+	@ParameterizedTest
+	@CsvSource(value = {
+		",,,3",
+		",0985,,1",
+		"Maung,,,1",
+		"Than,,,0",
+		"Aung,09854,,1",
+		"Aung,09554,,0",
+		"Aung,,aung@gmail,1",
+		"Ba,,aung@gmail,0",
+		"Aung,09854715477,aung,1",
+	})
+	void search_test(String name, String phone, String email, int count) {
+		var result = teacherService.search(
+				Optional.ofNullable(name),
+				Optional.ofNullable(phone),
+				Optional.ofNullable(email));
+		
+		assertEquals(count, result.size());
 	}
 }

@@ -14,15 +14,31 @@
 		<a href="${ homeUrl }" class="navbar-brand">Leave Management System</a>
 
 		<ul class="navbar-nav">
-			<li class="nav-item"><a href="${ teachersUrl }" class="nav-link ${param.view eq 'teachers' ? 'active' : '' }">Teachers</a>
+			<li class="nav-item"><a href="${ teachersUrl }" class="nav-link ${param.view eq 'teachers' ? 'active' : '' }">
+				<i class="bi bi-people"></i>
+				Teachers
+			</a>
 			</li>
-			<li class="nav-item"><a href="${ classesUrl }" class="nav-link ${param.view eq 'classes' ? 'active' : '' }">Classes</a>
+			<li class="nav-item"><a href="${ classesUrl }" class="nav-link ${param.view eq 'classes' ? 'active' : '' }">
+				<i class="bi bi-mortarboard"></i>
+				Classes
+			</a>
 			</li>
-			<li class="nav-item"><a href="${ leavesUrl }" class="nav-link ${param.view eq 'leaves' ? 'active' : '' }">Leaves</a>
+			<li class="nav-item"><a href="${ studentsUrl }" class="nav-link ${param.view eq 'students' ? 'active' : '' }">
+				<i class="bi bi-people-fill"></i>
+				Students
+			</a>
 			</li>
-			<li class="nav-item"><a href="${ studentsUrl }" class="nav-link ${param.view eq 'students' ? 'active' : '' }">Students</a>
+			<li class="nav-item"><a href="${ leavesUrl }" class="nav-link ${param.view eq 'leaves' ? 'active' : '' }">
+				<i class="bi bi-inbox"></i>
+				Leaves
+			</a>
 			</li>
-			<li class="nav-item"><a href="${ signoutUrl }" class="nav-link">Sign Out</a>
+			<li class="nav-item">
+				<a href="${ signoutUrl }" class="nav-link">
+				<i class="bi bi-lock"></i>
+				Sign Out
+			</a>
 			</li>
 		</ul>
 	</div>

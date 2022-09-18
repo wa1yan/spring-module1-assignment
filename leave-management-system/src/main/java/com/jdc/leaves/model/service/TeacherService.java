@@ -76,7 +76,7 @@ public class TeacherService {
 					.filter(StringUtils::hasLength)
 					.map(str -> {
 						param.put("email", str.concat("%"));
-						return "and a.email like :email";
+						return "and a.email like :email ";
 					}).orElse("")
 			);
 		
@@ -85,7 +85,7 @@ public class TeacherService {
 					.filter(StringUtils::hasLength)
 					.map(str -> {
 						param.put("phone", str.concat("%"));
-						return "and lower(t.phone) like :phone";
+						return "and lower(t.phone) like :phone ";
 					}).orElse("")
 			);
 		
@@ -106,10 +106,6 @@ public class TeacherService {
 	public TeacherListVO findById(int id) {
 		var sql = "%s where %s %s".formatted(SELECT_PROJECTION, "t.id = :id", SELECT_GROUP_BY);
 		return template.queryForObject(sql, Map.of("id",id), rowMapper);
-	}
-
-	public List<IdWithName> getAvailableTeachers() {
-		return null;
 	}
 	
 	private int insert(TeacherForm form) {
@@ -141,6 +137,12 @@ public class TeacherService {
 						"assign_date",Date.valueOf(form.getAssignDate())));
 		
 		return form.getId();
+	}
+	
+	public List<IdWithName> getAvailableTeachers() {
+		return template.query("select t.id, a.name from teacher t join account a on a.id = t.id where a.deleted = :del",
+				Map.of("del",false),
+				new BeanPropertyRowMapper<IdWithName>(IdWithName.class));
 	}
 
 }

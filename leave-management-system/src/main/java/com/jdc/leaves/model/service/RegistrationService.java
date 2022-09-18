@@ -21,13 +21,12 @@ public class RegistrationService {
 		return null;
 	}
 
-	public RegistrationDetailsVO findDetailsById(int classId, int studentId) {
+	public RegistrationDetailsVO findDetailsById(int classId) {
 		// TODO implement here
 		return null;
 	}
 
-	public RegistrationForm getFormById(int classId, int studentId) {
-		// TODO implement here
+	public RegistrationForm getFormById(int id) {
 		return null;
 	}
 

@@ -18,7 +18,7 @@
 	
 <c:url value="/resources/application.css" var="cssUrl"></c:url>
 <link rel="stylesheet" href="${ cssUrl }" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -43,10 +43,13 @@
 				<input type="text" name="email" class="form-control" placeholder="Enter Email" />
 			</div>
 			<div class="col btn-wrapper">
-				<button class="btn btn-outline-success me-2">Search</button>
+				<button class="btn btn-outline-success me-2"><i class="bi bi-search"></i> Search</button>
 				
 				<c:url value="/teachers/edit" var="editUrl"></c:url>
-				<a href="${ editUrl }" class="btn btn-outline-danger">Add New</a>
+				<a href="${ editUrl }" class="btn btn-outline-danger">
+					<i class="bi bi-plus"></i>
+					Add New
+				</a>
 			</div>
 		</form>
 		
@@ -74,7 +77,7 @@
 						<c:url value="/teachers/edit" var="edit">
 							<c:param name="id" value="1"></c:param>
 						</c:url>
-						<a href="${ edit }" class="">Edit</a>
+						<a href="${ edit }" class=""><i class="bi bi-pencil"></i></a>
 					</td>
 				</tr>
 			</tbody>

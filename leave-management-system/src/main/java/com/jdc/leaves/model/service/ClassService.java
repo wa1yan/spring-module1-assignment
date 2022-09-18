@@ -14,27 +14,22 @@ import com.jdc.leaves.model.dto.output.ClassListVO;
 public class ClassService {
 
 	public List<ClassListVO> search(Optional<String> teacher, Optional<LocalDate> from, Optional<LocalDate> to) {
-		// TODO implement here
 		return null;
 	}
 
-	public ClassForm findById(Optional<Integer> id) {
-		// TODO implement here
+	public ClassForm findById(int id) {
 		return null;
 	}
 
 	public ClassListVO findInfoById(int id) {
-		// TODO implement here
 		return null;
 	}
 
 	public ClassDetailsVO findDetailsById(int id) {
-		// TODO implement here
 		return null;
 	}
 
 	public int save(ClassForm form) {
-		// TODO implement here
 		return 0;
 	}
 

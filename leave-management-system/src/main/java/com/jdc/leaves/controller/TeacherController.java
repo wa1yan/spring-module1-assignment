@@ -34,12 +34,13 @@ public class TeacherController {
 
 	@GetMapping("/edit")
 	public String edit(@RequestParam Optional<Integer> id) {
-		
+		//teacherService.findById(id);
 		return "teachers-edit";
 	}
 
 	@PostMapping
 	public String save(@ModelAttribute TeacherForm form) {
+		teacherService.save(form);
 		return "redirect:/teachers";
 	}
 	

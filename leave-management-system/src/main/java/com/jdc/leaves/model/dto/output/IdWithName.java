@@ -1,7 +1,5 @@
 package com.jdc.leaves.model.dto.output;
 
-import java.util.*;
-
 public class IdWithName {
 
 	public IdWithName() {

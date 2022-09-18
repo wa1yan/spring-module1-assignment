@@ -2,8 +2,7 @@ package com.jdc.leaves.model.dto.input;
 
 public class RegistrationForm {
 
-	public RegistrationForm() {
-	}
+	private int id;
 
 	private int classId;
 
@@ -16,6 +15,14 @@ public class RegistrationForm {
 	private String phone;
 
 	private String education;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getClassId() {
 		return classId;
