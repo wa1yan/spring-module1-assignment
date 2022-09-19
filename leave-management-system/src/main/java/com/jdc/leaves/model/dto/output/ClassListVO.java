@@ -2,10 +2,9 @@ package com.jdc.leaves.model.dto.output;
 
 import java.time.LocalDate;
 
-public class ClassListVO {
+import org.springframework.format.annotation.DateTimeFormat;
 
-	public ClassListVO() {
-	}
+public class ClassListVO {
 
 	private int id;
 
@@ -15,6 +14,7 @@ public class ClassListVO {
 
 	private String teacherPhone;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 
 	private int months;

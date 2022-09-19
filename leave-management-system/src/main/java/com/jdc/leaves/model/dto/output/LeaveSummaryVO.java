@@ -1,11 +1,6 @@
 package com.jdc.leaves.model.dto.output;
 
-import java.util.*;
-
 public class LeaveSummaryVO {
-
-	public LeaveSummaryVO() {
-	}
 
 	private int classId;
 

@@ -19,6 +19,71 @@
 </head>
 <body>
 
-	<c:import url="/jsp/include/navbar.jsp" ></c:import>
+	<c:import url="/jsp/include/navbar.jsp" >
+			<c:param name="view" value="classes"></c:param>
+	</c:import>
+	
+	<div class="container">
+		<h3 class="my-4">Registration Details</h3>
+		
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-header">
+						Student Information
+					</div>
+					<div class="card-body">
+						<div class="mb-3">
+							<label class="form-label">Studnet Name</label>
+							<span class="form-control">Aung Aung</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Phone</label>
+							<span class="form-control">095258548755</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Email</label>
+							<span class="form-control">aung@gmail.com</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Education</label>
+							<span class="form-control">College</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col">
+				<div class="card">
+					<div class="card-header">Class Information</div>
+					<div class="card-body">
+						<div class="mb-3">
+							<label class="form-label">Teacher</label>
+							<span class="form-control">Guru</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Start Date</label>
+							<span class="form-control">2022-10-22</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Duration</label>
+							<span class="form-control">6 Months</span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Description</label>
+							<span class="form-control">One Stop Java</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="mt-4">
+			<c:url value="/classes/registration" var="edit">
+				<c:param name="id" value="1"></c:param>
+			</c:url>
+			<a href="${ edit }" class="btn btn-outline-danger"><i class="bi bi-pencil"></i> Edit Registration</a>
+		</div>
+	</div>
 </body>
 </html>

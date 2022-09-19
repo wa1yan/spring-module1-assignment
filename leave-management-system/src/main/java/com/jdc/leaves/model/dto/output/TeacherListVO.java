@@ -2,12 +2,11 @@ package com.jdc.leaves.model.dto.output;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.jdc.leaves.model.dto.input.TeacherForm;
 
 public class TeacherListVO {
-
-	public TeacherListVO() {
-	}
 
 	private int id;
 
@@ -17,6 +16,7 @@ public class TeacherListVO {
 
 	private String email;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate assignDate;
 
 	private long classCount;

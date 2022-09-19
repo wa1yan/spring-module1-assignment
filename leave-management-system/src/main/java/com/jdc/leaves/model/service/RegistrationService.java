@@ -27,7 +27,9 @@ public class RegistrationService {
 	}
 
 	public RegistrationForm getFormById(int id) {
-		return null;
+		var form = new RegistrationForm();
+		form.setId(id);
+		return form;
 	}
 
 }

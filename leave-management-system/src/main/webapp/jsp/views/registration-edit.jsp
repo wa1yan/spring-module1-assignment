@@ -28,7 +28,7 @@
 		<h3 class="my-4">${ empty param.id ? 'Add New': 'Edit ' } Registration</h3>
 		
 		<div class="row">
-			<sf:form modelAttribute="registForm" cssClass="col-6">
+			<sf:form method="post" modelAttribute="registForm" cssClass="col-6">
 				
 				<sf:hidden path="id"/>
 				<sf:hidden path="classId"/>
@@ -41,11 +41,29 @@
 					<label class="form-label">Teacher</label>
 					<span class="form-control">Guru</span>
 				</div>
+				
 				<div class="mb-3">
 					<label class="form-label">Student Name</label>
-					<span class="form-control">Aye Aye</span>
+					<sf:input path="studentName" cssClass="form-control" placeholder="Enter student name"></sf:input>
 				</div>
 				
+				<div class="mb-3">
+					<label class="form-label">Email</label>
+					<sf:input type="email" path="email" cssClass="form-control" placeholder="Enter email address"></sf:input>
+				</div>
+				
+				<div class="mb-3">
+					<label class="form-label">Phone</label>
+					<sf:input type="tel" path="phone" cssClass="form-control" placeholder="Enter phone number"></sf:input>
+				</div>
+				
+				<div class="mb-3">
+					<label class="form-label">Last Education</label>
+					<sf:input path="education" cssClass="form-control" placeholder="Enter Last Education"></sf:input>
+				</div>
+				<div>
+					<button class="btn btn-outline-danger"><i class="bi bi-save"></i> Save</button>
+				</div>
 			</sf:form>
 		</div>
 	</div>

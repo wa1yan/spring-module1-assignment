@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 public class RegistrationListVO {
 
-	public RegistrationListVO() {
-	}
-
 	private int id;
 
 	private int classId;

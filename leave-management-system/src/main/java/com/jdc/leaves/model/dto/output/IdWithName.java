@@ -2,9 +2,6 @@ package com.jdc.leaves.model.dto.output;
 
 public class IdWithName {
 
-	public IdWithName() {
-	}
-
 	private int id;
 
 	private String name;

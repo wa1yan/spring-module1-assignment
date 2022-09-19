@@ -1,6 +1,6 @@
 package com.jdc.leaves.model.dto.output;
 
-import java.util.*;
+import java.util.List;
 
 public class ClassDetailsVO {
 	

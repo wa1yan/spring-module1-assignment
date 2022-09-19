@@ -64,7 +64,7 @@ public class ClassController {
 
 	@GetMapping("/registration")
 	public String editRegistration(
-			@RequestParam(required = false, defaultValue ="0" ) int id,
+			@RequestParam(required = false, defaultValue ="0" ) int registId,
 			@RequestParam(required = false, defaultValue ="0" ) int classId) {
 		
 		return "registration-edit";
@@ -102,7 +102,7 @@ public class ClassController {
 		
 		var form = new RegistrationForm();
 		form.setClassId(classId);
-		return null;
+		return form;
 	}
 
 }
