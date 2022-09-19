@@ -2,6 +2,8 @@ package com.jdc.leaves.model.dto.output;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class RegistrationListVO {
 
 	private int id;
@@ -12,6 +14,7 @@ public class RegistrationListVO {
 
 	private String teacher;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 
 	private int studentId;
