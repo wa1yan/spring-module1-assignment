@@ -136,8 +136,8 @@ public class ClassService {
 
 	private int insert(ClassForm form) {
 		var params = new HashMap<String, Object>();
-		params.put("teacher", form.getTeacher());
-		params.put("start", Date.valueOf(form.getStart()));
+		params.put("teacher_id", form.getTeacher());
+		params.put("start_date", Date.valueOf(form.getStart()));
 		params.put("months", form.getMonths());
 		params.put("description", form.getDescription());
 		
@@ -147,14 +147,14 @@ public class ClassService {
 	private int update(ClassForm form) {
 		var params = new HashMap<String, Object>();
 		params.put("teacher", form.getTeacher());
-		params.put("months", form.getMonths());
 		params.put("start", Date.valueOf(form.getStart()));
+		params.put("months", form.getMonths());
 		params.put("description", form.getDescription());
 		params.put("id", form.getId());
 		
 		return template.update("""
 				update classes
-				set teacher_id = :teacher, months = :months, start = :start, description = :description
+				set teacher_id = :teacher,  start_date = :start, months = :months, description = :description
 				where id = :id
 				""",
 				params);

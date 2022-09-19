@@ -17,6 +17,19 @@ public class ClassForm {
 
 	private String description;
 
+	public ClassForm() {
+		super();
+	}
+
+	public ClassForm(int id, int teacher, LocalDate start, int months, String description) {
+		super();
+		this.id = id;
+		this.teacher = teacher;
+		this.start = start;
+		this.months = months;
+		this.description = description;
+	}
+
 	public int getId() {
 		return id;
 	}
