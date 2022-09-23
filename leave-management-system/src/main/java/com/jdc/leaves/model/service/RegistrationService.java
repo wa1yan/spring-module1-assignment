@@ -41,9 +41,16 @@ public class RegistrationService {
 
 	public List<RegistrationListVO> searchByClassId(int id) {
 		var sql = """
-				select * 
+				select r.id, r.classes_id classId,
+				c.teacher_id teacherId,
+				a.name teacher,c.start_date startDate, 
+				r.student_id studentId, a.name student, s.phone studentPhone,
+				r.registration_date registrationDate
 				from registration r
 				join classes c on r.classes_id = c.id
+				join student s on r.student_id = s.id
+				join teacher t on c.teacher_id = t.id
+				join account a on t.id = a.id and s.id = a.id
 				where r.classes_id = :id
 				""";
 		return template.query(sql, Map.of("id",id), new BeanPropertyRowMapper<RegistrationListVO>(RegistrationListVO.class));
