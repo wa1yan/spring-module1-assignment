@@ -23,6 +23,23 @@ public class ClassListVO {
 
 	private long studentCount;
 
+	public ClassListVO() {
+		super();
+	}
+
+	public ClassListVO(int id, int teacherId, String teacherName, String teacherPhone, LocalDate startDate, int months,
+			String description, long studentCount) {
+		super();
+		this.id = id;
+		this.teacherId = teacherId;
+		this.teacherName = teacherName;
+		this.teacherPhone = teacherPhone;
+		this.startDate = startDate;
+		this.months = months;
+		this.description = description;
+		this.studentCount = studentCount;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -28,12 +28,12 @@ public class ClassService {
 				c.id id, t.id teacherId,
 				a.name teacherName, t.phone teacherPhone,
 				c.start_date startDate, c.months, c.description,
-				count(r.id) studentCount
+				count(r.student_id) studentCount
 				from classes c
 				join teacher t on t.id = c.teacher_id
 				join account a on a.id = t.id
-				left join registration r on c.id = r.class_id
-				where 1 = 1
+				left join registration r on c.id = r.classes_id
+				where 1 = 1 
 			""";
 	
 	private final String GROUP_BY_PROJECTION = """
@@ -65,11 +65,11 @@ public class ClassService {
 		
 		sb.append(
 				teacher
-					.filter(StringUtils::hasText)
+					.filter(StringUtils::hasLength)
 					.map(name -> {
 						params.put("teacher", name.toLowerCase().concat("%"));
-						return "and lower(a.name) like :teacher ";
-					})
+						return " and lower(a.name) like :teacher ";
+					}).orElse("")
 				);
 		
 		sb.append(
@@ -77,7 +77,7 @@ public class ClassService {
 					.map(start -> {
 						params.put("from", Date.valueOf(start));
 						return "and c.start_date >= :from ";
-					})
+					}).orElse("")
 				
 				);
 		
@@ -86,7 +86,7 @@ public class ClassService {
 					.map(start -> {
 						params.put("to", Date.valueOf(start));
 						return "and c.start_date <= :to ";
-					})
+					}).orElse("")
 				
 				);
 		
@@ -106,7 +106,8 @@ public class ClassService {
 
 	public ClassForm findById(int id) {
 		return template.queryForObject("""
-				select * from classes where id = :id
+				select c.id, c.teacher_id teacher, c.start_date start, c.months, c.description
+				from classes c where id = :id
 				""",
 				Map.of("id",id),
 				new BeanPropertyRowMapper<ClassForm>(ClassForm.class));
