@@ -2,6 +2,11 @@ package com.jdc.leaves.model.dto.input;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class LeaveForm {
 
 	public LeaveForm() {
@@ -11,16 +16,26 @@ public class LeaveForm {
 
 	private int student;
 
+	@DateTimeFormat(pattern = "yy-MM-dd")
 	private LocalDate applyDate;
 
+	@DateTimeFormat(pattern = "yy-MM-dd")
 	private LocalDate startDate;
 
+	@Min(value = 1, message = "Please enter leave days.")
 	private int days;
 
+	@NotEmpty(message = "Please enter reason for leaves.")
 	private String reason;
 
 	public int getClassId() {
 		return classId;
+	}
+
+	public LeaveForm(int classId, int student) {
+		super();
+		this.classId = classId;
+		this.student = student;
 	}
 
 	public void setClassId(int classId) {

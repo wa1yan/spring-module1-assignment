@@ -3,9 +3,12 @@ package com.jdc.leaves.controller;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +53,10 @@ public class ClassController {
 	}
 
 	@PostMapping
-	public String save(@ModelAttribute ClassForm form) {
+	public String save(@Valid @ModelAttribute ClassForm form, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "classes-edit";
+		}
 		var id = classService.save(form);
 		return "redirect:/classes/%d".formatted(id);
 	}
@@ -71,7 +77,10 @@ public class ClassController {
 	}
 	
 	@PostMapping("/registration")
-	public String saveRegistration(@ModelAttribute(name = "registForm") RegistrationForm form) {
+	public String saveRegistration(@Valid @ModelAttribute(name = "registForm") RegistrationForm form,  BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "registration-edit";
+		}
 		var id = regService.save(form);
 		return "redirect:/classes/registration/%d".formatted(id);
 	}
@@ -95,7 +104,7 @@ public class ClassController {
 	RegistrationForm registForm(
 			@RequestParam(required = false, defaultValue ="0" ) int registId,
 			@RequestParam(required = false, defaultValue ="0" ) int classId) {
-		//edit
+
 		if(registId > 0) {
 			return regService.getFormById(registId);
 		}

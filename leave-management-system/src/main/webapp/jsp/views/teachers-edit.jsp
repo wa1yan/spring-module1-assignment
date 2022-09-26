@@ -25,7 +25,6 @@
 	
 	<div class="container">
 		<h3 class="my-3">${ empty param.id ? 'Add' : 'Edit' } Teacher</h3>
-		
 		<div class="row">
 			<c:url value="/teachers" var="saveUrl"></c:url>
 			<sf:form action="${ saveUrl }" method="post" cssClass="col-lg-6 col-md-8 col-sm-12" modelAttribute="form">
@@ -35,18 +34,22 @@
 				<div class="mb-4">
 					<sf:label path="name" cssClass="form-label">Name</sf:label>
 					<sf:input path="name" cssClass="form-control" placeholder="Enter Teacher Name"/>
+					<sf:errors path="name" cssClass="text-secondary"></sf:errors>
 				</div>
 				<div class="mb-4">
 					<sf:label path="phone" cssClass="form-label">Phone</sf:label>
 					<sf:input path="phone" cssClass="form-control" placeholder="Enter Phone Number"/>
+					<sf:errors path="phone" cssClass="text-secondary"></sf:errors>
 				</div>
 				<div class="mb-4">
 					<sf:label path="email" cssClass="form-label">Email</sf:label>
 					<sf:input path="email" cssClass="form-control" placeholder="Enter Email Address"/>
+					<sf:errors path="email" cssClass="text-secondary"></sf:errors>
 				</div>
 				<div class="mb-4">
 					<sf:label path="assignDate" cssClass="form-label">Assign Date</sf:label>
-					<sf:input type="date" path="assignDate" cssClass="form-control"/>
+					<sf:input path="assignDate"  type="date" cssClass="form-control"/>
+					<sf:errors path="assignDate" cssClass="text-secondary"></sf:errors>
 				</div>
 				
 				<div class="mb-4">

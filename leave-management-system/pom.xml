@@ -5,30 +5,46 @@
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<dependencies>
+	<properties>
+		<spring-security-version>5.6.7</spring-security-version>
+		<spring-version>5.3.22</spring-version>
+	</properties>
 
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>5.7.3</version>
+			<version>${spring-security-version}</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring-security-version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>5.7.3</version>
+			<version>${spring-security-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>5.3.22</version>
+			<version>${spring-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>5.3.22</version>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.4.Final</version>
 		</dependency>
 
 		<dependency>
@@ -66,7 +82,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>5.3.22</version>
+			<version>${spring-version}</version>
 		</dependency>
 
 		<dependency>

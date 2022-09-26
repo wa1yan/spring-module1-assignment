@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:annotation-driven ></mvc:annotation-driven>
-	<context:component-scan base-package="com.jdc.leaves.controller"></context:component-scan>
+	<context:component-scan base-package="com.jdc.leaves.controller"/>
 	
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/jsp/views/" suffix=".jsp"/>
@@ -17,7 +17,7 @@
 	
 	<mvc:redirect-view-controller redirect-url="/home" path="/"/>
 	
-	<mvc:view-controller path="/signout" view-name="signin"/>
-	
+	<mvc:view-controller path="/signin" view-name="signin" />
+
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 </beans>

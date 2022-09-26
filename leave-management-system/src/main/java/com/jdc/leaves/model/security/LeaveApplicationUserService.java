@@ -1,10 +1,41 @@
 package com.jdc.leaves.model.security;
 
-import java.util.*;
+import java.util.Map;
 
-public class LeaveApplicationUserService {
+import javax.sql.DataSource;
 
-	public LeaveApplicationUserService() {
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class LeaveApplicationUserService implements UserDetailsService {
+
+	private NamedParameterJdbcTemplate template;
+
+	public LeaveApplicationUserService(DataSource dataSource) {
+		template = new NamedParameterJdbcTemplate(dataSource);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		var list = template.query("select * from account where email = :email ",
+				Map.of("email", email),
+				new BeanPropertyRowMapper<>(AccountDto.class));
+		
+		if (!list.isEmpty()) {
+			var account = list.get(0);
+			return User.builder()
+					.username(account.getEmail())
+					.password(account.getPassword())
+					.roles(account.getRole())
+					.accountExpired(account.isDeleted())
+					.build();
+		}
+		
+		throw new UsernameNotFoundException(email);
 	}
 
 }

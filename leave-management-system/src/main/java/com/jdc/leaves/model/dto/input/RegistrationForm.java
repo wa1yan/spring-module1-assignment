@@ -1,20 +1,41 @@
 package com.jdc.leaves.model.dto.input;
 
+import java.time.LocalDate;
+
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class RegistrationForm {
 
 	private int id;
 
+	
 	private int classId;
 
 	private int studentId;
+	
+	@DateTimeFormat(pattern = "yy-MM-dd")
+	private LocalDate registDate;
 
+	@NotEmpty(message = "Please enter student name.")
 	private String studentName;
 
+	@NotEmpty(message = "Please enter email address.")
 	private String email;
 
+	@NotEmpty(message = "Please enter phone number")
 	private String phone;
 
 	private String education;
+
+	public LocalDate getRegistDate() {
+		return registDate;
+	}
+
+	public void setRegistDate(LocalDate registDate) {
+		this.registDate = registDate;
+	}
 
 	public int getId() {
 		return id;

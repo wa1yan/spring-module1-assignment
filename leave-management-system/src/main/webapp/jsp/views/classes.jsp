@@ -44,7 +44,9 @@
 			</div>
 			<div class="col btn-wrapper">
 				<button class="btn btn-outline-success me-2"><i class="bi bi-search"></i> Search</button>
-				<a href="" class="btn btn-outline-danger"><i class="bi bi-plus"></i> Add New</a>
+				
+				<c:url value="/classes/edit" var="editUrl"></c:url>
+				<a href="${ editUrl }" class="btn btn-outline-danger"><i class="bi bi-plus"></i> Add New</a>
 			</div>
 		</form>
 		<table class="table table-hover">
