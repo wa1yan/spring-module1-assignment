@@ -49,41 +49,53 @@
 				<a href="${ editUrl }" class="btn btn-outline-danger"><i class="bi bi-plus"></i> Add New</a>
 			</div>
 		</form>
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Teacher</th>
-					<th>Teacher Phone No</th>
-					<th>Start Date</th>
-					<th>Months</th>
-					<th>Student</th>
-					<th>Description</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Guru</td>
-					<td>09254295287</td>
-					<td>2022-09-14</td>
-					<td>4</td>
-					<td>50</td>
-					<td>One Stop Java Class</td>
-					<td>
-						<c:url value="/classes/edit" var="edit">
-							<c:param name="id" value="1"></c:param>
-						</c:url>
-						<a href="${ edit }" class=""><i class="bi bi-pencil me-3"></i></a>
+		
+		<c:choose>
+			<c:when test="${ empty list }">
+				<div class="alert alert-success">There is no data</div>
+			</c:when>
+			<c:otherwise>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Teacher</th>
+							<th>Teacher Phone No</th>
+							<th>Start Date</th>
+							<th>Months</th>
+							<th>Student</th>
+							<th>Description</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${ list }" var="item">
+							<tr>
+								<td>${ item.id }</td>
+								<td>${ item.teacherName}</td>
+								<td>${ item.teacherPhone }</td>
+								<td>${ item.startDate }</td>
+								<td>${ item.months }</td>
+								<td>${ item.studentCount }</td>
+								<td>${ item.description }</td>
+								<td>
+									<c:url value="/classes/edit" var="edit">
+										<c:param name="id" value="${ item.id }"></c:param>
+									</c:url>
+									<a href="${ edit }" class=""><i class="bi bi-pencil me-3"></i></a>
+									
+									<c:url value="/classes/${ item.id }" var="details">
+									</c:url>
+									<a href="${ details }" class=""><i class="bi bi-cursor"></i></a>
+								</td>
+							</tr>
+						</c:forEach>
 						
-						<c:url value="/classes/1" var="details">
-						</c:url>
-						<a href="${ details }" class=""><i class="bi bi-cursor"></i></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					</tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 </body>
 </html>

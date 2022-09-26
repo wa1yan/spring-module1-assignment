@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,12 @@ public class ClassServiceTest {
 
 		assertEquals(count, list.size());
 
+	}
+	
+	@Test
+	@Sql(scripts = {"/sql/truncate.sql"})
+	void truncate_table() {
+		
 	}
 
 }

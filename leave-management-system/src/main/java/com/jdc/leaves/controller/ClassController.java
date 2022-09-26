@@ -63,7 +63,7 @@ public class ClassController {
 
 	@GetMapping("/{id}")
 	public String showDetails(@PathVariable int id, ModelMap model) {
-		var result = classService.findById(id);
+		var result = classService.findDetailsById(id);
 		model.put("dto", result);
 		return "classes-details";
 	}

@@ -22,6 +22,7 @@
 	<c:import url="/jsp/include/navbar.jsp" >
 		<c:param name="view" value="classes"></c:param>
 	</c:import>
+	
 	<div class="container">
 		<h3 class="my-4">Class Details</h3>
 		<div class="card mb-4">
@@ -29,19 +30,19 @@
 			<div class="card-body row mb-2">
 				<div class="col">
 					<label class="form-label">Teacher</label>
-					<span class="form-control">Aye Aye</span>
+					<span class="form-control">${ dto.classInfo.teacherName }</span>
 				</div>
 				<div class="col">
 					<label class="form-label">Start Date</label>
-					<span class="form-control">2022-10-22</span>
+					<span class="form-control">${ dto.classInfo.startDate }</span>
 				</div>
 				<div class="col">
 					<label class="form-label">Durations</label>
-					<span class="form-control">3 Months</span>
+					<span class="form-control">${ dto.classInfo.months } Months</span>
 				</div>
 				<div class="col">
 					<label class="form-label">Description</label>
-					<span class="form-control">One Stop Batch 4</span>
+					<span class="form-control">${ dto.classInfo.description }</span>
 				</div>
 			</div>
 		</div>
@@ -56,7 +57,7 @@
 			</ul>
 			<div>
 				<c:url var="editClass" value="/classes/edit">
-					<c:param name="id" value="1"></c:param>	
+					<c:param name="id" value="${ dto.classInfo.id }"></c:param>	
 				</c:url>
 				<a href="${ editClass }" class="btn btn-outline-danger mb-4"><i class="bi bi-pencil"></i> Edit Class</a>
 				
@@ -69,11 +70,25 @@
 			
 		<div class="tab-content" id="contents">
 			<div class="tab-pane fade show active" id="registration">
-				<c:import url="/jsp/include/class-registration.jsp"></c:import>
+				<c:choose>
+					<c:when test="${ empty dto.registrations }">
+						<div class="alert alert-info">There is no registration data.</div>
+					</c:when>
+					<c:otherwise>
+						<c:import url="/jsp/include/class-registration.jsp"></c:import>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			
 			<div class="tab-pane fade" id="leaves">
-				<c:import url="/jsp/include/class-leaves.jsp"></c:import>
+				<c:choose>
+						<c:when test="${ empty dto.leaves }">
+							<div class="alert alert-info">There is no leaves data.</div>
+						</c:when>
+						<c:otherwise>
+							<c:import url="/jsp/include/class-leaves.jsp"></c:import>
+						</c:otherwise>
+				</c:choose>		
 			</div>
 		</div>
 	</div>

@@ -41,7 +41,7 @@
 					<sf:input path="phone" cssClass="form-control" placeholder="Enter Phone Number"/>
 					<sf:errors path="phone" cssClass="text-secondary"></sf:errors>
 				</div>
-				<div class="mb-4">
+				<div class="mb-4 ${ empty param.id ? '' : 'd-none' }">
 					<sf:label path="email" cssClass="form-label">Email</sf:label>
 					<sf:input path="email" cssClass="form-control" placeholder="Enter Email Address"/>
 					<sf:errors path="email" cssClass="text-secondary"></sf:errors>

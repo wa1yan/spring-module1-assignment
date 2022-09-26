@@ -153,11 +153,13 @@ public class ClassService {
 		params.put("description", form.getDescription());
 		params.put("id", form.getId());
 		
-		return template.update("""
+		template.update("""
 				update classes
 				set teacher_id = :teacher,  start_date = :start, months = :months, description = :description
 				where id = :id
 				""",
 				params);
+		
+		return form.getId();
 	}
 }

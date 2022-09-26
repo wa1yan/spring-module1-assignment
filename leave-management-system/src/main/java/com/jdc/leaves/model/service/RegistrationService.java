@@ -40,7 +40,7 @@ public class RegistrationService {
 
 	public List<RegistrationListVO> searchByClassId(int id) {
 		var sql = """
-				select r.id, r.classes_id classId,
+				select r.classes_id classId,
 				c.teacher_id teacherId,
 				a.name teacher,c.start_date startDate, 
 				r.student_id studentId, a.name student, s.phone studentPhone,

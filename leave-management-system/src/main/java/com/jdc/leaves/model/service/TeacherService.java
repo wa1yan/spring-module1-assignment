@@ -134,7 +134,9 @@ public class TeacherService {
 		//update teacher table
 		template.update("update teacher set phone = :phone, assign_date = :assign_date where id = :id",
 				Map.of("phone",form.getPhone(),
-						"assign_date",Date.valueOf(form.getAssignDate())));
+						"assign_date",Date.valueOf(form.getAssignDate()),
+						"id",form.getId())
+					);
 		
 		return form.getId();
 	}
