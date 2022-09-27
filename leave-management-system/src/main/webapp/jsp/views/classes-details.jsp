@@ -61,8 +61,10 @@
 				</c:url>
 				<a href="${ editClass }" class="btn btn-outline-danger mb-4"><i class="bi bi-pencil"></i> Edit Class</a>
 				
-				<c:url var="addRegistration" value="/classes/registration">
-					<c:param name="id" value="1"></c:param>	
+				<c:url var="addRegistration" value="/classes/registration">	
+					<c:param name="classId" value="${ dto.classInfo.id }"></c:param>	
+					<c:param name="teacherName" value="${ dto.classInfo.teacherName }"></c:param>
+					<c:param name="startDate" value="${ dto.classInfo.startDate }"></c:param>
 				</c:url>
 				<a href="${ addRegistration }" class="btn btn-outline-primary mb-4"><i class="bi bi-plus"></i> Add New Registration</a>
 			</div>

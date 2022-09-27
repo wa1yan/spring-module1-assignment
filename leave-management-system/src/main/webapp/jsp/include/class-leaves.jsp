@@ -13,13 +13,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>Aye Aye</td>
-			<td>09254298575</td>
-			<td>2022-10-12</td>
-			<td>2022-10-15</td>
-			<td>3</td>
-			<td></td>
-		</tr>
+		<c:forEach items="${ dto.leaves }" var="item">
+			<tr>
+				<td>${ item.student }</td>
+				<td>${ item.studentPhone }</td>
+				<td>${ item.applyDate }</td>
+				<td>${ item.startDate }</td>
+				<td>${ item.days }</td>
+				<td>${ item.reason }</td>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>

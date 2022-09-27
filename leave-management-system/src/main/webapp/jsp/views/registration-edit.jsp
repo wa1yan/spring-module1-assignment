@@ -30,32 +30,35 @@
 		<div class="row">
 			<sf:form method="post" modelAttribute="registForm" cssClass="col-6">
 				
-				<sf:hidden path="studentId"/>
 				<sf:hidden path="classId"/>
+				<sf:hidden path="studentId"/>
 				<sf:hidden path="registDate"/>
 				
 				<div class="mb-3">
 					<label class="form-label">Start Date</label>
-					<span class="form-control">2022-10-22</span>
+					<span class="form-control">${ param.startDate }</span>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">Teacher</label>
-					<span class="form-control">Guru</span>
+					<span class="form-control">${ param.teacherName }</span>
 				</div>
 				
 				<div class="mb-3">
 					<label class="form-label">Student Name</label>
 					<sf:input path="studentName" cssClass="form-control" placeholder="Enter student name"></sf:input>
+					<sf:errors path="studentName" cssClass="text-secondary"></sf:errors>
 				</div>
 				
 				<div class="mb-3">
 					<label class="form-label">Email</label>
 					<sf:input type="email" path="email" cssClass="form-control" placeholder="Enter email address"></sf:input>
+					<sf:errors path="email" cssClass="text-secondary"></sf:errors>
 				</div>
 				
 				<div class="mb-3">
 					<label class="form-label">Phone</label>
 					<sf:input type="tel" path="phone" cssClass="form-control" placeholder="Enter phone number"></sf:input>
+					<sf:errors path="phone" cssClass="text-secondary"></sf:errors>
 				</div>
 				
 				<div class="mb-3">

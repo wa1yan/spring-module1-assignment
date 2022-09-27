@@ -4,7 +4,6 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Id</th>
 			<th>Registration Date</th>
 			<th>Student</th>
 			<th>Phone</th>
@@ -12,21 +11,24 @@
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${ dto.registrations }" var="item">
 		<tr>
-			<td>1</td>
-			<td>2022-10-12</td>
-			<td>Aye Aye</td>
-			<td>09254298575</td>
+			<td>${ item.registrationDate }</td>
+			<td>${ item.student }</td>
+			<td>${ item.studentPhone }</td>
 			<td>
 				<c:url value="/classes/registration" var="edit">
-					<c:param name="id" value="1"></c:param>
+					<c:param name="classId" value="${ item.classId }"></c:param>
+					<c:param name="studentId" value="${ item.studentId }"></c:param>
 				</c:url> 
 				<a href="${ edit }" class=""><i class="bi bi-pencil me-2"></i></a>
 				
-				<c:url value="/classes/registration/1" var="details">
+				<c:url value="/classes/registration/${ item.classId }/${ item.studentId }" var="details">
 				</c:url> 
-				<a href="${ details }" class=""><i class="bi bi-cursor"></i></a>
+				<a href="${ details }"><i class="bi bi-cursor"></i></a>
 			</td>
 		</tr>
+	</c:forEach>
+		
 	</tbody>
 </table>

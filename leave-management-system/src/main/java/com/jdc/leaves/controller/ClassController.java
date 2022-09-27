@@ -58,7 +58,7 @@ public class ClassController {
 			return "classes-edit";
 		}
 		var id = classService.save(form);
-		return "redirect:/classes/%d".formatted(id);
+		return "redirect:/classes/regis/%d".formatted(id);
 	}
 
 	@GetMapping("/{id}")
@@ -71,8 +71,8 @@ public class ClassController {
 	@GetMapping("/registration")
 	public String editRegistration(
 			@RequestParam(required = false, defaultValue ="0" ) int registId,
-			@RequestParam(required = false, defaultValue ="0" ) int classId) {
-		
+			@RequestParam(required = false, defaultValue ="0" ) int classId
+			) {
 		return "registration-edit";
 	}
 	
@@ -82,13 +82,13 @@ public class ClassController {
 			return "registration-edit";
 		}
 		var id = regService.save(form);
-		return "redirect:/classes/registration/%d".formatted(id);
+		return "redirect:/classes/registration/%d/%d".formatted(form.getClassId(), form.getStudentId());
 	}
 
-	@GetMapping("/registration/{id}")
-	public String showRegistrationDetails(@PathVariable int id, ModelMap model) {
-		var result = regService.findDetailsById(id);
-		model.put("dto",result);
+	@GetMapping("/registration/{classId}/{studentId}")
+	public String showRegistrationDetails(@PathVariable int classId, @PathVariable int studentId, ModelMap model) {
+		var result = regService.findDetailsById(classId, studentId);
+		model.put("dto", result);
 		return "registration-details";
 	}
 	
@@ -102,11 +102,11 @@ public class ClassController {
 	
 	@ModelAttribute(name = "registForm")
 	RegistrationForm registForm(
-			@RequestParam(required = false, defaultValue ="0" ) int registId,
+			@RequestParam(required = false, defaultValue ="0" ) int studentId,
 			@RequestParam(required = false, defaultValue ="0" ) int classId) {
 
-		if(registId > 0) {
-			return regService.getFormById(registId);
+		if(studentId > 0) {
+			return regService.getFormById(studentId);
 		}
 		
 		var form = new RegistrationForm();

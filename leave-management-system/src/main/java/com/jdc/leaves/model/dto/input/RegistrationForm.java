@@ -8,9 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class RegistrationForm {
 
-	private int id;
-
-	
 	private int classId;
 
 	private int studentId;
@@ -36,15 +33,7 @@ public class RegistrationForm {
 	public void setRegistDate(LocalDate registDate) {
 		this.registDate = registDate;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public int getClassId() {
 		return classId;
 	}

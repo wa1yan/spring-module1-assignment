@@ -35,19 +35,19 @@
 					<div class="card-body">
 						<div class="mb-3">
 							<label class="form-label">Studnet Name</label>
-							<span class="form-control">Aung Aung</span>
+							<span class="form-control">${ dto.student.name }</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Phone</label>
-							<span class="form-control">095258548755</span>
+							<span class="form-control">${ dto.student.phone }</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Email</label>
-							<span class="form-control">aung@gmail.com</span>
+							<span class="form-control">${ dto.student.email }</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Education</label>
-							<span class="form-control">College</span>
+							<span class="form-control">${ dto.student.education }</span>
 						</div>
 					</div>
 				</div>
@@ -59,19 +59,19 @@
 					<div class="card-body">
 						<div class="mb-3">
 							<label class="form-label">Teacher</label>
-							<span class="form-control">Guru</span>
+							<span class="form-control">${ dto.classInfo.teacherName }</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Start Date</label>
-							<span class="form-control">2022-10-22</span>
+							<span class="form-control">${ dto.classInfo.startDate }</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Duration</label>
-							<span class="form-control">6 Months</span>
+							<span class="form-control">${ dto.classInfo.months } Months</span>
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Description</label>
-							<span class="form-control">One Stop Java</span>
+							<span class="form-control">${ dto.classInfo.description }</span>
 						</div>
 					</div>
 				</div>
