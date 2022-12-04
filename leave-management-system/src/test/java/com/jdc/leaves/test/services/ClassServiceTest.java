@@ -10,7 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +25,13 @@ import com.jdc.leaves.model.dto.input.ClassForm;
 import com.jdc.leaves.model.service.ClassService;
 
 @SpringJUnitConfig(locations = "/root-config.xml")
+@TestMethodOrder(OrderAnnotation.class)
 public class ClassServiceTest {
 
 	@Autowired
 	private ClassService classService;
 
+	@Order(1)
 	@ParameterizedTest
 	@Sql(scripts = {"/sql/truncate.sql","/sql/teacher.sql"})
 	@CsvSource("0,3,2022-10-10,3,Spring fullstack online")
@@ -34,15 +40,18 @@ public class ClassServiceTest {
 		assertEquals(4, classService.save(form));
 	}
 	
+	@Order(2)
 	@ParameterizedTest
 	@Sql(scripts = {"/sql/truncate.sql","/sql/teacher.sql"})
 	@CsvSource("3,2,2022-10-20,4,Flutter")
 	void update_success_test(int id, int teacher, LocalDate startDate, int months, String description) {
 		var form = new ClassForm(id, teacher, startDate, months, description);
 	
-		assertEquals(1, classService.save(form));
+		assertEquals(id, classService.save(form));
+		assertEquals(startDate, classService.findById(id).getStart());
 	}
 	
+	@Order(3)
 	@ParameterizedTest
 	@Sql(scripts = {"/sql/truncate.sql","/sql/teacher.sql"})
 	@CsvSource(value = {
@@ -59,6 +68,7 @@ public class ClassServiceTest {
 		assertEquals(description, classForm.getDescription());
 	}
 	
+	@Order(4)
 	@ParameterizedTest
 	@Sql(scripts = {"/sql/truncate.sql","/sql/teacher.sql"})
 	@CsvSource(value = {
@@ -66,13 +76,12 @@ public class ClassServiceTest {
 		"2, 1, Maung Maung, 09254295287, 2022-09-18, 3, SpringBoot, 0",
 		"3, 2, Aung Aung, 09854715477, 2022-09-11, 3, Flutter, 0"	
 	})
-	void test_find_detail_by_id(int id, int teacherId, String teacherName, String teacherPhone, LocalDate startDate, int months,
-			String description, long studentCount) {
+	void test_find_detail_by_id(int id, int teacherId, String teacherName, String teacherPhone,
+			LocalDate startDate, int months,String description, long studentCount) {
 		
 		var classDetailsVO = classService.findDetailsById(id);
 		
 		var classListVo = classDetailsVO.getClassInfo();
-		
 		assertNotNull(classDetailsVO);
 		
 		assertNotNull(classListVo);
@@ -95,6 +104,7 @@ public class ClassServiceTest {
 		//assertEquals(null, null);
 	}
 	
+	@Order(5)
 	@ParameterizedTest
 	@Sql(scripts = {"/sql/truncate.sql","/sql/teacher.sql"})
 	@CsvSource(value = {
@@ -122,6 +132,7 @@ public class ClassServiceTest {
 
 	}
 	
+	@Disabled
 	@Test
 	@Sql(scripts = {"/sql/truncate.sql"})
 	void truncate_table() {

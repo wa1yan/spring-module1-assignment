@@ -1,6 +1,10 @@
 package com.jdc.leaves.model.dto.input;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -9,17 +13,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class LeaveForm {
 
-	public LeaveForm() {
-	}
-
 	private int classId;
 
 	private int student;
 
-	@DateTimeFormat(pattern = "yy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate applyDate;
 
-	@DateTimeFormat(pattern = "yy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 
 	@Min(value = 1, message = "Please enter leave days.")
@@ -30,6 +31,9 @@ public class LeaveForm {
 
 	public int getClassId() {
 		return classId;
+	}
+
+	public LeaveForm() {
 	}
 
 	public LeaveForm(int classId, int student) {
@@ -80,6 +84,33 @@ public class LeaveForm {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	public Map<String, Object> leavesInsertParams() {
+		return Map.of(
+			"apply_date", Date.valueOf(applyDate),
+			"classes_id", classId,
+			"student_id", student,
+			"start_date", Date.valueOf(startDate),
+			"days", days,
+			"reason", reason
+		);
+	}
+	
+	public List<Map<String, Object>> leavesDaysInsertParams() {
+		return IntStream.iterate(0, a -> a + 1).limit(days)
+			.mapToObj(a -> startDate.plusDays(a))
+			.map(this::leavesDaysInsertParams)
+			.toList();
+	}
+	
+	private Map<String, Object> leavesDaysInsertParams(LocalDate leaveDate) {
+		return Map.of(
+				"leaves_apply_date", Date.valueOf(applyDate),
+				"leaves_classes_id", classId,
+				"leaves_student_id", student,
+				"leave_date", leaveDate
+		);
 	}
 
 }

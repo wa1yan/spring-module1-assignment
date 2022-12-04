@@ -33,7 +33,7 @@ public class ClassService {
 				join teacher t on t.id = c.teacher_id
 				join account a on a.id = t.id
 				left join registration r on c.id = r.classes_id
-				where 1 = 1 
+				where 1 = 1  
 			""";
 	
 	private final String GROUP_BY_PROJECTION = """
@@ -114,7 +114,10 @@ public class ClassService {
 	}
 
 	public ClassListVO findInfoById(int id) {
-		return null;
+		var sql = "%s %s %s".formatted(SELECT_PROJECTION, " and c.id = :id " ,GROUP_BY_PROJECTION);
+		return template.queryForObject(sql,
+				Map.of("id", id),
+				new BeanPropertyRowMapper<ClassListVO>(ClassListVO.class));
 	}
 
 	public ClassDetailsVO findDetailsById(int id) {
@@ -127,8 +130,8 @@ public class ClassService {
 		
 		classDetailVO.setRegistrations(registrationService.searchByClassId(id));
 
-		classDetailVO.setLeaves(leaveService.search(Optional.of(id),
-				Optional.empty(),
+		classDetailVO.setLeaves(leaveService.search(
+				Optional.of(id),
 				Optional.empty(),
 				Optional.empty()));
 		

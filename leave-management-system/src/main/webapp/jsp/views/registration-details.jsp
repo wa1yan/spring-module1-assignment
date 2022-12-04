@@ -79,10 +79,24 @@
 			
 		</div>
 		<div class="mt-4">
-			<c:url value="/classes/registration" var="edit">
-				<c:param name="id" value="1"></c:param>
+		
+			<c:url var="classDetails" value="/classes/${ dto.classInfo.id }"></c:url>
+			
+			<a href="${ classDetails }" class="btn btn-outline-primary me-2">
+				<i class="bi bi-mortarboard"></i> Class Details
+			</a>
+
+			<c:url var="edit" value="/classes/registration">
+				<c:param name="classId" value="${ dto.classInfo.id }"></c:param>
+				<c:param name="studentId" value="${ dto.student.id }"></c:param>
+				<c:param name="teacherName" value="${ dto.classInfo.teacherName }"></c:param>
+				<c:param name="startDate" value="${ dto.classInfo.startDate }"></c:param>
 			</c:url>
-			<a href="${ edit }" class="btn btn-outline-danger"><i class="bi bi-pencil"></i> Edit Registration</a>
+			
+			<a href="${ edit }" class="btn btn-outline-danger">
+				<i class="bi bi-pencil"></i> Edit Registration
+			</a>
+			
 		</div>
 	</div>
 </body>

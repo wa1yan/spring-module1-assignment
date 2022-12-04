@@ -55,7 +55,7 @@ public class TeacherService {
 		teacherInsert = new SimpleJdbcInsert(dataSource);
 		teacherInsert.setTableName("teacher");
 		
-		rowMapper = new BeanPropertyRowMapper<>(TeacherListVO.class);
+		rowMapper = new BeanPropertyRowMapper<TeacherListVO>(TeacherListVO.class);
 	}
 	
 	@Transactional

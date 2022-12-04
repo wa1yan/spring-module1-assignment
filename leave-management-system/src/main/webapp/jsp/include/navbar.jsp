@@ -34,20 +34,23 @@
 						Classes
 					</a>
 				</li>
+				<li class="nav-item">
+					<a href="${ studentsUrl }"
+						class="nav-link ${param.view eq 'students' ? 'active' : '' }"> <i
+							class="bi bi-people-fill"></i> Students
+					</a>
+				</li>
 			</sec:authorize>
 
-			<li class="nav-item">
-				<a href="${ studentsUrl }"
-					class="nav-link ${param.view eq 'students' ? 'active' : '' }"> <i
-						class="bi bi-people-fill"></i> Students
-				</a>
-			</li>
-
-			<li class="nav-item"><a href="${ leavesUrl }" class="nav-link ${param.view eq 'leaves' ? 'active' : '' }">
-				<i class="bi bi-inbox"></i>
-				Leaves
-			</a>
-			</li>
+			
+			<sec:authorize access="hasRole('Student')">
+				<li class="nav-item">
+					<a href="${ leavesUrl }" class="nav-link ${param.view eq 'leaves' ? 'active' : '' }">
+						<i class="bi bi-inbox"></i>
+						Leaves
+					</a>
+				</li>
+			</sec:authorize>
 			<li class="nav-item">
 				<a class="nav-link sign-out">
 				<i class="bi bi-lock"></i>

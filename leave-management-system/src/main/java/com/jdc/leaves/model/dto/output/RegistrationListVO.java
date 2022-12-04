@@ -13,6 +13,8 @@ public class RegistrationListVO {
 	private int teacherId;
 
 	private String teacher;
+	
+	private String classInfo;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
@@ -98,4 +100,13 @@ public class RegistrationListVO {
 		this.registrationDate = registrationDate;
 	}
 
+	public String getClassInfo() {
+		return classInfo;
+	}
+
+	public void setClassInfo(String classInfo) {
+		this.classInfo = classInfo;
+	}
+
+	
 }

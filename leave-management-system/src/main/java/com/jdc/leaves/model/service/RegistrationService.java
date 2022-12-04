@@ -7,122 +7,140 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.leaves.model.dto.input.RegistrationForm;
-import com.jdc.leaves.model.dto.output.ClassListVO;
 import com.jdc.leaves.model.dto.output.RegistrationDetailsVO;
 import com.jdc.leaves.model.dto.output.RegistrationListVO;
-import com.jdc.leaves.model.dto.output.StudentListVO;
 
 @Service
 public class RegistrationService {
 	
+	private static final String SELECT_BY_CLASS = """
+			select r.classes_id classId, c.teacher_id teacherId, ta.name teacher, c.description classInfo, 
+			c.start_date startDate, r.student_id studentId, sa.name student, s.phone studentPhone, r.registration_date registrationDate 
+			from registration r 
+			join classes c on r.classes_id = c.id 
+			join teacher t on c.teacher_id = t.id join account ta on t.id = ta.id 
+			join student s on r.student_id = s.id join account sa on s.id = sa.id 
+			where r.classes_id = :classId
+			""";
+	
+	private static final String SELECT_BY_STUDENT = """
+			select r.classes_id classId, c.teacher_id teacherId, ta.name teacher, c.description classInfo, 
+			c.start_date startDate, r.student_id studentId, sa.name student, s.phone studentPhone, r.registration_date registrationDate 
+			from registration r 
+			join classes c on r.classes_id = c.id 
+			join teacher t on c.teacher_id = t.id join account ta on t.id = ta.id 
+			join student s on r.student_id = s.id join account sa on s.id = sa.id 
+			where r.student_id = :studentId
+			""";
+	
 	private NamedParameterJdbcTemplate template;
 	private SimpleJdbcInsert registInsert;
-	private SimpleJdbcInsert studentInsert;
-	private SimpleJdbcInsert accountInsert;
+	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private ClassService clsService;
 	
 	public RegistrationService(DataSource dataSource) {
 		template = new NamedParameterJdbcTemplate(dataSource);
-
-		accountInsert = new SimpleJdbcInsert(dataSource);
-		accountInsert.setTableName("account");
-		accountInsert.setGeneratedKeyName("id");
-		accountInsert.setColumnNames(List.of("name","role","email","password"));
-		
-		studentInsert = new SimpleJdbcInsert(dataSource);
-		studentInsert.setTableName("student");
 		
 		registInsert = new SimpleJdbcInsert(dataSource);
 		registInsert.setTableName("registration");
-		registInsert.setColumnNames(List.of("classes_id", "student_id", "registration_date"));
-		
-		
+		//registInsert.setColumnNames(List.of("classes_id", "student_id", "registration_date"));		
 	}
 
-	public int save(RegistrationForm form) {
+	@Transactional
+	public void save(RegistrationForm form) {
+		if( form.getStudentId() > 0 ) {
+			update(form);
+		} else {
+			create(form);
+		}
 		
-		//account insert
-		var studentId = accountInsert.executeAndReturnKey(Map.of(
-				"name",form.getStudentName(),
-				"role", "Student",
-				"email", form.getEmail(),
-				"password",form.getPhone()
-				));
-		form.setStudentId(studentId.intValue());
-		
-		//student insert
-		studentInsert.execute(Map.of(
-				"id", form.getStudentId(),
-				"phone", form.getPhone(),
-				"education" , form.getEducation()));
-		
-		return registInsert.execute(Map.of(
-				"classes_id", form.getClassId(),
-				"student_id", form.getStudentId(),
-				"registration_date", Date.valueOf(LocalDate.now())
-				));
 	}
 
 	public List<RegistrationListVO> searchByClassId(int id) {
-		var sql = """
-				select r.classes_id classId,
-				c.teacher_id teacherId,
-				a.name teacher,c.start_date startDate, 
-				r.student_id studentId, a.name student, s.phone studentPhone,
-				r.registration_date registrationDate
-				from registration r
-				join classes c on r.classes_id = c.id
-				join student s on r.student_id = s.id
-				join teacher t on c.teacher_id = t.id
-				join account a on t.id = a.id and s.id = a.id
-				where r.classes_id = :id
-				""";
-		return template.query(sql, Map.of("id",id), new BeanPropertyRowMapper<RegistrationListVO>(RegistrationListVO.class));
+		return template.query(SELECT_BY_CLASS, Map.of("classId", id),
+				new BeanPropertyRowMapper<RegistrationListVO>(RegistrationListVO.class));
+	}
+	
+	public List<RegistrationListVO> searchByStudentId(int id) {
+		return template.query(SELECT_BY_STUDENT, Map.of("studentId", id),
+				new BeanPropertyRowMapper<RegistrationListVO>(RegistrationListVO.class));
 	}
 
 	public RegistrationDetailsVO findDetailsById(int classId, int studentId) {
-		
 		RegistrationDetailsVO registDetail = new RegistrationDetailsVO();
 		
-		var classListVO = template.queryForObject("""
-				select c.id, teacher_id teacherId, a.name teacherName, t.phone teacherPhone, c.start_date startDate, c.months, c.description, count(r.student_id) studentCount
-				from leaves_db.classes c
-				join leaves_db.account a on c.teacher_id = a.id
-				join leaves_db.teacher t on t.id = c.teacher_id
-				join leaves_db.registration r on classes_id = c.id
-				where c.id = :classId
-				""",
-				Map.of("classId", classId),
-				new BeanPropertyRowMapper<ClassListVO>(ClassListVO.class));
-		
-		registDetail.setClassInfo(classListVO);
-		
-		var studentListVO = template.queryForObject("""
-				select s.id, name, phone, email, education, count(r.classes_id) classCount
-			    from leaves_db.student s
-			    join leaves_db.account a on s.id = a.id
-			    join leaves_db.registration r on r.student_id = s.id
-			    where s.id = :studentId
-				""",
-				Map.of("studentId", studentId),
-				new BeanPropertyRowMapper<StudentListVO>(StudentListVO.class));
-		
-		registDetail.setStudent(studentListVO);
-		//var registDate = template.execu
-		
+		registDetail.setRegistDate(LocalDate.now());
+		registDetail.setClassInfo(clsService.findInfoById(classId));
+		registDetail.setStudent(studentService.findInfoById(studentId));		
 		
 		return registDetail;
 	}
 
-	public RegistrationForm getFormById(int studentId) {
-		var form = new RegistrationForm();
-		form.setStudentId(studentId);
-		return form;
-	}
+	public RegistrationForm getFormById(int classId, int studentId) {
+		var sql = """
+				select r.classes_id classId, s.id studentId, r.registration_date registDate,
+				a.name studentName, a.email, s.phone, s.education
+				from registration r
+				join student s on s.id = r.student_id
+				join account a on a.id = s.id
+				where r.classes_id = :classId and r.student_id = :studentId
+				""";
 
+		return template.queryForObject(
+				sql,
+				Map.of("classId",classId, "studentId", studentId),
+				new BeanPropertyRowMapper<RegistrationForm>(RegistrationForm.class));
+	}
+	
+	private void create(RegistrationForm form) {
+		
+		var studentId = studentService.createStudent(form);
+		
+		if(studentId != null) {
+			form.setStudentId(studentId);
+		}
+		
+		if(form.getRegistDate() == null) {
+			form.setRegistDate(LocalDate.now());
+		}
+		
+		registInsert.execute(Map.of(
+				"classes_id", form.getClassId(),
+				"student_id", form.getStudentId(),
+				"registration_date", Date.valueOf(form.getRegistDate())
+				));
+	}
+	
+	private void update(RegistrationForm form) {
+		template.update("""
+				update registration 
+				set registration_date = :registDate 
+				where classes_id =:classId and student_id = :studentId
+				""", Map.of(
+						"registDate", Date.valueOf(form.getRegistDate()),
+						"classId", form.getClassId(),
+						"studentId", form.getStudentId()
+						));
+		
+		template.update("""
+				update student set phone = :phone, education = :education
+				where id = :id
+				""", Map.of(
+				"phone", form.getPhone(),
+				"education", form.getEducation(),
+				"id", form.getStudentId()
+				));
+	}
 }

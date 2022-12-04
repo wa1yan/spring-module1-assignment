@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -38,8 +39,8 @@ public class ClassController {
 	@GetMapping
 	public String index(
 			@RequestParam Optional<String> teacher,
-			@RequestParam Optional<LocalDate> from,
-			@RequestParam Optional<LocalDate> to,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Optional<LocalDate> from,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Optional<LocalDate> to,
 			ModelMap model) {	
 		model.put("list", classService.search(teacher, from, to));
 		return "classes";
@@ -58,7 +59,7 @@ public class ClassController {
 			return "classes-edit";
 		}
 		var id = classService.save(form);
-		return "redirect:/classes/regis/%d".formatted(id);
+		return "redirect:/classes/%d".formatted(id);
 	}
 
 	@GetMapping("/{id}")
@@ -70,7 +71,7 @@ public class ClassController {
 
 	@GetMapping("/registration")
 	public String editRegistration(
-			@RequestParam(required = false, defaultValue ="0" ) int registId,
+			@RequestParam(required = false, defaultValue ="0" ) int studentId,
 			@RequestParam(required = false, defaultValue ="0" ) int classId
 			) {
 		return "registration-edit";
@@ -81,7 +82,7 @@ public class ClassController {
 		if(bindingResult.hasErrors()) {
 			return "registration-edit";
 		}
-		var id = regService.save(form);
+		regService.save(form);
 		return "redirect:/classes/registration/%d/%d".formatted(form.getClassId(), form.getStudentId());
 	}
 
@@ -106,7 +107,7 @@ public class ClassController {
 			@RequestParam(required = false, defaultValue ="0" ) int classId) {
 
 		if(studentId > 0) {
-			return regService.getFormById(studentId);
+			return regService.getFormById(classId, studentId);
 		}
 		
 		var form = new RegistrationForm();

@@ -5,7 +5,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,39 +17,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.leaves.model.dto.input.LeaveForm;
+import com.jdc.leaves.model.service.ClassService;
+import com.jdc.leaves.model.service.LeaveService;
+import com.jdc.leaves.model.service.StudentService;
 
 @Controller
 @RequestMapping("/leaves")
 public class LeaveController {
+	
+	@Autowired
+	private LeaveService leaveService;
+	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private ClassService classService;
+	
 
 	@GetMapping
 	public String index(
-			@RequestParam Optional<Integer> classId,
-			@RequestParam Optional<String> studentName,
-			@RequestParam Optional<LocalDate> from,
-			@RequestParam Optional<LocalDate> to) {
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Optional<LocalDate> from,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Optional<LocalDate> to,
+			ModelMap model){
+		model.put("list", leaveService.search(Optional.empty(), from, to));
 		return "leaves";
 	}
 
-	@GetMapping("/{id}")
-	public String edit(@RequestParam int classId, @RequestParam int studentId) {
+	@GetMapping("/edit")
+	public String edit(@RequestParam int classId, @RequestParam int studentId, ModelMap model) {
+		model.put("classInfo", classService.findInfoById(classId));
+		model.put("studentInfo", studentService.findInfoById(studentId));
 		return "leaves-edit";
 	}
 
 	@PostMapping
-	public String save(@Valid @ModelAttribute LeaveForm form, BindingResult bindingResult) {
+	public String save(@Valid @ModelAttribute LeaveForm form, BindingResult bindingResult, ModelMap model) {
 		if(bindingResult.hasErrors()) {
+			model.put("classInfo", classService.findInfoById(form.getClassId()));
+			model.put("studentInfo", studentService.findInfoById(form.getStudent()));
 			return "leaves-edit";
 		}
-		return "";
+		leaveService.save(form);
+		return "redirect:/leaves";
 	}
 	
-	@ModelAttribute
+	@ModelAttribute(name="form")
 	LeaveForm form(@RequestParam(required = false) Integer classId, @RequestParam(required = false) Integer studentId) {
-		if(null != classId || null != studentId) {
-			return new LeaveForm(classId,studentId);
+		if(null != classId && null != studentId) {
+			var form = new LeaveForm(classId, studentId);
+			form.setApplyDate(LocalDate.now());
+			return form;
 		}
-		return null;
+		return new LeaveForm();
 	}
 
 }

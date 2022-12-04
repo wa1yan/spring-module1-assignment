@@ -60,14 +60,14 @@
 		<security:logout logout-url="/signout" invalidate-session="true"
 			logout-success-url="/" />
 
-		<security:intercept-url pattern="/leaves/**"
-			access="hasAnyRole('Admin','Teacher','Student')" />
-		<security:intercept-url
-			access="hasAnyRole('Admin','Teacher')" pattern="/classes/**" />
-		<security:intercept-url
-			access="hasAnyRole('Admin','Teacher')" pattern="/students/**" />
+		<security:intercept-url pattern="/classes/**"
+			access="hasAnyRole('Admin','Teacher')" />
+		<security:intercept-url pattern="/students/**" 
+			access="hasAnyRole('Admin','Teacher')"/>
 		<security:intercept-url pattern="/teachers/**"
 			access="hasRole('Admin')" />
+		<security:intercept-url pattern="/leaves/**"
+			access="hasRole('Student')" />
 		<security:intercept-url pattern="/home"
 			access="isAuthenticated()" />
 	</security:http>

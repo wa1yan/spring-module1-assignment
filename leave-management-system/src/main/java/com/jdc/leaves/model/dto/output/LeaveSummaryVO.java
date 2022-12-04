@@ -1,16 +1,32 @@
 package com.jdc.leaves.model.dto.output;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class LeaveSummaryVO {
 
 	private int classId;
 
 	private String teacher;
 
-	private String startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate startDate;
 
 	private long students;
 
 	private long leaves;
+
+	private String details;
+	
+	public LeaveSummaryVO(ClassListVO vo) {
+		super();
+		this.classId = vo.getId();
+		this.teacher = vo.getTeacherName();
+		this.startDate = vo.getStartDate();
+		this.students = vo.getStudentCount();
+		this.details = vo.getDescription();
+	}
 
 	public int getClassId() {
 		return classId;
@@ -28,11 +44,11 @@ public class LeaveSummaryVO {
 		this.teacher = teacher;
 	}
 
-	public String getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
@@ -52,4 +68,11 @@ public class LeaveSummaryVO {
 		this.leaves = leaves;
 	}
 
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
 }

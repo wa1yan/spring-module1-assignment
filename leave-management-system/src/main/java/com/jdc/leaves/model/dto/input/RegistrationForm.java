@@ -11,7 +11,7 @@ public class RegistrationForm {
 	private int classId;
 
 	private int studentId;
-	
+
 	@DateTimeFormat(pattern = "yy-MM-dd")
 	private LocalDate registDate;
 
@@ -26,6 +26,22 @@ public class RegistrationForm {
 
 	private String education;
 
+	public RegistrationForm() {
+		super();
+	}
+
+	public RegistrationForm(int classId, int studentId, LocalDate registDate,
+		String studentName, String email,String phone, String education) {
+		super();
+		this.classId = classId;
+		this.studentId = studentId;
+		this.registDate = registDate;
+		this.studentName = studentName;
+		this.email = email;
+		this.phone = phone;
+		this.education = education;
+	}
+
 	public LocalDate getRegistDate() {
 		return registDate;
 	}
@@ -33,7 +49,7 @@ public class RegistrationForm {
 	public void setRegistDate(LocalDate registDate) {
 		this.registDate = registDate;
 	}
-	
+
 	public int getClassId() {
 		return classId;
 	}

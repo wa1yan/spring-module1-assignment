@@ -32,15 +32,15 @@
 		<form class="row mb-4">
 			<div class="col-auto">
 				<label class="form-label">Teacher Name</label>
-				<input type="text" name="teacher" class="form-control" placeholder="Enter Teacher Name "/>
+				<input type="text" name="teacher" class="form-control" placeholder="Enter Teacher Name" value="${ param.teacher }"/>
 			</div>
 			<div class="col-auto">
 				<label class="form-label">Date From</label>
-				<input type="date" name="from" class="form-control"/>
+				<input type="date" name="from" class="form-control" value="${ param.from }"/>
 			</div>
 			<div class="col-auto">
 				<label class="form-label">Date To</label>
-				<input type="date" name="to" class="form-control" />
+				<input type="date" name="to" class="form-control" value="${ param.to }"/>
 			</div>
 			<div class="col btn-wrapper">
 				<button class="btn btn-outline-success me-2"><i class="bi bi-search"></i> Search</button>
