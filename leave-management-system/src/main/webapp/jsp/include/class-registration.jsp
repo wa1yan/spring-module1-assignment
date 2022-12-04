@@ -25,7 +25,7 @@
 				</c:url> 
 				<a href="${ edit }" class=""><i class="bi bi-pencil me-2"></i></a>
 				
-				<c:url value="/classes/registration/${ item.studentId }/${ item.classId }" var="details">
+				<c:url value="/classes/registration/${ item.classId }/${ item.studentId }" var="details">
 				</c:url> 
 				<a href="${ details }"><i class="bi bi-cursor"></i></a>
 			</td>

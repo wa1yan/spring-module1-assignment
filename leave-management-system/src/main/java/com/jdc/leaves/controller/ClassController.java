@@ -71,8 +71,8 @@ public class ClassController {
 
 	@GetMapping("/registration")
 	public String editRegistration(
-			@RequestParam(required = false, defaultValue ="0" ) int studentId,
-			@RequestParam(required = false, defaultValue ="0" ) int classId
+			@RequestParam(required = false, defaultValue ="0" ) int classId,
+			@RequestParam(required = false, defaultValue ="0" ) int studentId
 			) {
 		return "registration-edit";
 	}
@@ -103,8 +103,8 @@ public class ClassController {
 	
 	@ModelAttribute(name = "registForm")
 	RegistrationForm registForm(
-			@RequestParam(required = false, defaultValue ="0" ) int studentId,
-			@RequestParam(required = false, defaultValue ="0" ) int classId) {
+			@RequestParam(required = false, defaultValue ="0" ) int classId,
+			@RequestParam(required = false, defaultValue ="0" ) int studentId) {
 
 		if(studentId > 0) {
 			return regService.getFormById(classId, studentId);

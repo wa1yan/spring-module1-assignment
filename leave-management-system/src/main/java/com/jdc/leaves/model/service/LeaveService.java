@@ -74,7 +74,7 @@ public class LeaveService {
 		var params = new HashMap<String, Object>();
 		
 		var authentication = SecurityContextHolder.getContext().getAuthentication();
-		if(authentication.isAuthenticated() && authentication.getAuthorities().contains(authority("Student"))) {
+		if(authentication.isAuthenticated() && authentication.getAuthorities().contains(authority("ROLE_Student"))) {
 			if(authentication instanceof UsernamePasswordAuthenticationToken token) {
 				sb.append(" and sa.email = :login");
 				params.put("login", token.getName());
